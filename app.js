@@ -124,7 +124,7 @@ app.post("/api/ismaintained", async (req, res) => {
   let equipment = {
     equipmentID: req.body.equipmentID,
   };
-  let sql = `UPDATE Equipment SET checkDate = ${date} WHERE equipmentID = ${equipment.equipmentID}`;
+  let sql = `UPDATE Equipment SET checkDate = "2023-03-31" WHERE equipmentID = ${equipment.equipmentID}`;
   connection.query(sql, equipment, (err, result) => {
     if (err) throw err;
     console.log(result);
