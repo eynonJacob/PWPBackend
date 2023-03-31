@@ -123,12 +123,15 @@ app.get("/api/needmaintenance", (req, res) => {
 });
 
 app.post("/api/ismaintained", async (req, res) => {
-  let date = new Date().toJSON();
-  //THIS DATE NEEDS TO ADD 3 MONTHS
+  let myDate = new Date();
+  myDate.setMonth(myDate.getMonth() + 3);
+  let textDate = myDate.toJSON();
+  console.log(textDate.substring(0, 10));
+  //THIS DATE ADDs 3 MONTHS
   let equipment = {
     equipmentID: req.body.equipmentID,
   };
-  let sql = `UPDATE Equipment SET checkDate = "${date.substring(
+  let sql = `UPDATE Equipment SET checkDate = "${textDate.substring(
     0,
     10
   )}" WHERE equipmentID = ${equipment.equipmentID}`;
