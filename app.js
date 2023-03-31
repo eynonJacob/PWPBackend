@@ -112,7 +112,10 @@ app.post("/api/addequipment", async (req, res) => {
 //MAINTENANCE
 app.get("/api/needmaintenance", (req, res) => {
   let date = new Date().toJSON();
-  let sql = `SELECT * FROM Equipment WHERE checkDate < '${date}'`;
+  let sql = `SELECT * FROM Equipment WHERE checkDate < "${date.substring(
+    0,
+    10
+  )}"`;
   connection.query(sql, (err, result) => {
     if (err) throw err;
     res.send(result);
@@ -121,10 +124,14 @@ app.get("/api/needmaintenance", (req, res) => {
 
 app.post("/api/ismaintained", async (req, res) => {
   let date = new Date().toJSON();
+  //THIS DATE NEEDS TO ADD 3 MONTHS
   let equipment = {
     equipmentID: req.body.equipmentID,
   };
-  let sql = `UPDATE Equipment SET checkDate = "2023-03-31" WHERE equipmentID = ${equipment.equipmentID}`;
+  let sql = `UPDATE Equipment SET checkDate = "${date.substring(
+    0,
+    10
+  )}" WHERE equipmentID = ${equipment.equipmentID}`;
   connection.query(sql, equipment, (err, result) => {
     if (err) throw err;
     console.log(result);
